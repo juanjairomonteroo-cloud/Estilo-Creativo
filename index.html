@@ -27,24 +27,50 @@
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .glass-card:hover {
             border-color: #3b82f6;
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .hero-pattern {
             background-image: radial-gradient(#1e293b 1px, transparent 1px);
             background-size: 40px 40px;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Estilos para el acordeón de ayuda */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 200px;
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="hero-pattern">
 
     <!-- Navegación -->
-    <nav class="fixed w-full z-50 glass-card border-none bg-black/60 top-0">
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 border-b border-transparent" id="navbar">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="text-2xl font-extrabold tracking-tighter gradient-text">
                 ESTILO CREATIVO
@@ -53,9 +79,10 @@
                 <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
                 <a href="#servicios" class="hover:text-blue-400 transition">Servicios</a>
                 <a href="#portafolio" class="hover:text-blue-400 transition">Portafolio</a>
+                <a href="#ayuda" class="hover:text-blue-400 transition">Ayuda</a>
                 <a href="#sobre-mi" class="hover:text-blue-400 transition">Sobre Mí</a>
             </div>
-            <a href="https://wa.me/59179015003" class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full text-sm font-bold transition flex items-center gap-2">
+            <a href="https://wa.me/59179015003" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-full text-sm font-bold transition flex items-center gap-2 shadow-lg shadow-blue-600/20">
                 <i data-lucide="whatsapp" class="w-4 h-4"></i> WhatsApp
             </a>
         </div>
@@ -65,14 +92,21 @@
     <section id="inicio" class="min-h-screen flex items-center pt-20 px-6">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div class="space-y-8 animate-fade-in">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    Disponible para nuevos proyectos
+                </div>
                 <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
                     Transformamos ideas en <span class="gradient-text">Impacto Visual</span>
                 </h1>
-                <p class="text-lg text-gray-400 max-w-lg">
-                    Diseño gráfico profesional y gigantografías de alta calidad para que tu marca destaque en cualquier formato.
+                <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
+                    Diseño gráfico profesional y gigantografías de alta calidad para que tu marca destaque en cualquier formato, desde lo digital hasta lo monumental.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#servicios" class="bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-blue-400 transition duration-300">
+                    <a href="#servicios" class="bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-blue-400 hover:text-white transition duration-300">
                         Ver Servicios
                     </a>
                     <a href="#portafolio" class="border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/5 transition duration-300">
@@ -80,13 +114,12 @@
                     </a>
                 </div>
             </div>
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                <div class="relative bg-zinc-900 rounded-2xl overflow-hidden aspect-video flex items-center justify-center border border-white/10">
-                    <span class="text-zinc-700 italic">[Imagen de Letrero Publicitario Moderno]</span>
-                    <div class="absolute bottom-4 left-4 right-4 p-4 glass-card rounded-lg">
-                        <p class="text-xs font-bold text-blue-400 uppercase tracking-widest">Proyecto Reciente</p>
-                        <p class="text-lg font-semibold">Valla Publicitaria Premium</p>
+            <div class="relative group animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative bg-zinc-900 rounded-2xl overflow-hidden aspect-video flex items-center justify-center border border-white/10 shadow-2xl">
+                    <div class="flex flex-col items-center gap-4">
+                        <i data-lucide="monitor" class="w-16 h-16 text-zinc-800"></i>
+                        <span class="text-zinc-600 italic font-medium">[Imagen de Letrero Publicitario Moderno]</span>
                     </div>
                 </div>
             </div>
@@ -94,154 +127,155 @@
     </section>
 
     <!-- Sección de Servicios -->
-    <section id="servicios" class="py-24 px-6 bg-zinc-950/50">
+    <section id="servicios" class="py-24 px-6 bg-zinc-950/50 border-y border-white/5">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Nuestros Servicios</h2>
-                <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
+                <h2 class="text-4xl font-bold mb-4 text-white">Nuestros Servicios</h2>
+                <div class="h-1.5 w-16 bg-blue-600 mx-auto rounded-full"></div>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Servicio 1 -->
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center mb-6 text-blue-400">
-                        <i data-lucide="palette"></i>
+                <div class="glass-card p-8 rounded-3xl">
+                    <div class="w-14 h-14 bg-blue-600/20 rounded-2xl flex items-center justify-center mb-8 text-blue-400">
+                        <i data-lucide="palette" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Diseño de Identidad</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    <h3 class="text-xl font-bold mb-4">Diseño de Identidad</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
                         Creación de logos únicos y manuales de marca que transmiten la esencia de tu negocio.
                     </p>
-                    <ul class="text-xs text-blue-300 space-y-2">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Logos Vectoriales</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Paletas de Color</li>
-                    </ul>
                 </div>
 
                 <!-- Servicio 2 -->
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 bg-cyan-600/20 rounded-lg flex items-center justify-center mb-6 text-cyan-400">
-                        <i data-lucide="image"></i>
+                <div class="glass-card p-8 rounded-3xl">
+                    <div class="w-14 h-14 bg-cyan-600/20 rounded-2xl flex items-center justify-center mb-8 text-cyan-400">
+                        <i data-lucide="image" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Publicidad Digital</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                        Diseño de flyers, banners para redes sociales y material publicitario optimizado para conversión.
+                    <h3 class="text-xl font-bold mb-4">Publicidad Digital</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Contenido visual optimizado para redes sociales y campañas de anuncios.
                     </p>
-                    <ul class="text-xs text-cyan-300 space-y-2">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Flyers para Eventos</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Ads para Facebook/TikTok</li>
-                    </ul>
                 </div>
 
                 <!-- Servicio 3 -->
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 bg-teal-600/20 rounded-lg flex items-center justify-center mb-6 text-teal-400">
-                        <i data-lucide="maximize"></i>
+                <div class="glass-card p-8 rounded-3xl">
+                    <div class="w-14 h-14 bg-teal-600/20 rounded-2xl flex items-center justify-center mb-8 text-teal-400">
+                        <i data-lucide="maximize" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Gigantografías</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                        Impresión a gran escala y diseño de letreros exteriores de alto impacto visual y durabilidad.
+                    <h3 class="text-xl font-bold mb-4">Gigantografías</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Impresión en gran formato para exteriores con materiales de alta resistencia.
                     </p>
-                    <ul class="text-xs text-teal-300 space-y-2">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Letreros Corporativos</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Lonas y Vinilos</li>
-                    </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Ayuda (FAQ) -->
+    <section id="ayuda" class="py-24 px-6 bg-black">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Centro de Ayuda</h2>
+                <p class="text-gray-400">Resolvemos tus dudas más frecuentes sobre nuestros procesos.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Pregunta 1 -->
+                <div class="faq-item glass-card rounded-2xl px-6 cursor-pointer overflow-hidden border border-white/5">
+                    <div class="flex items-center justify-between py-6">
+                        <h3 class="font-semibold text-lg">¿Cómo solicito una cotización?</h3>
+                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-blue-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content text-gray-400 text-sm leading-relaxed">
+                        Puedes solicitarla haciendo clic en el botón de WhatsApp. Por favor, detalla el tipo de servicio (diseño digital o gigantografía) y las dimensiones aproximadas para darte un presupuesto exacto.
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="faq-item glass-card rounded-2xl px-6 cursor-pointer overflow-hidden border border-white/5">
+                    <div class="flex items-center justify-between py-6">
+                        <h3 class="font-semibold text-lg">¿Cuánto tiempo tarda un diseño de logo?</h3>
+                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-blue-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content text-gray-400 text-sm leading-relaxed">
+                        El tiempo promedio de entrega para las primeras propuestas es de 3 a 5 días hábiles, dependiendo de la complejidad y la comunicación sobre los ajustes.
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="faq-item glass-card rounded-2xl px-6 cursor-pointer overflow-hidden border border-white/5">
+                    <div class="flex items-center justify-between py-6">
+                        <h3 class="font-semibold text-lg">¿Realizan instalaciones de letreros?</h3>
+                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-blue-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content text-gray-400 text-sm leading-relaxed">
+                        Sí, contamos con un equipo técnico especializado para la instalación de gigantografías y letreros luminosos en Santa Cruz. Consulta disponibilidad para otras zonas.
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="faq-item glass-card rounded-2xl px-6 cursor-pointer overflow-hidden border border-white/5">
+                    <div class="flex items-center justify-between py-6">
+                        <h3 class="font-semibold text-lg">¿Qué formatos de archivo entregan?</h3>
+                        <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-blue-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content text-gray-400 text-sm leading-relaxed">
+                        Entregamos archivos vectoriales originales (AI, PDF), versiones de alta resolución para impresión (TIFF, JPG) y versiones optimizadas para web (PNG, SVG).
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-8 bg-blue-600/10 rounded-3xl border border-blue-500/20 text-center">
+                <p class="text-blue-400 font-bold mb-4">¿Aún tienes dudas?</p>
+                <p class="text-sm text-gray-400 mb-6">Nuestro equipo está listo para asesorarte de forma personalizada.</p>
+                <a href="https://wa.me/59179015003" class="inline-flex items-center gap-2 bg-blue-600 px-6 py-3 rounded-xl font-bold hover:bg-blue-500 transition">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Hablar con un asesor
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Sobre Mí -->
-    <section id="sobre-mi" class="py-24 px-6">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-            <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-600 shrink-0 bg-zinc-800 flex items-center justify-center">
-                 <span class="text-xs text-zinc-500 italic text-center p-4">[Foto de Jhon Jairo Montero Duran]</span>
+    <section id="sobre-mi" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="relative group shrink-0">
+                <div class="absolute -inset-2 bg-blue-600 rounded-full blur opacity-30"></div>
+                <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-600/50 bg-zinc-800 flex items-center justify-center shadow-2xl relative z-10">
+                     <div class="flex flex-col items-center p-8 text-center">
+                        <i data-lucide="user" class="w-12 h-12 text-zinc-700 mb-2"></i>
+                        <span class="text-[10px] text-zinc-500 italic">Jhon Jairo Montero Duran</span>
+                     </div>
+                </div>
             </div>
             <div class="space-y-6">
-                <h2 class="text-3xl font-bold">Jhon Jairo Montero Duran</h2>
-                <p class="text-blue-400 font-semibold tracking-wide uppercase text-sm">Fundador & Creativo Principal</p>
-                <p class="text-gray-300 leading-relaxed">
-                    Con años de experiencia en el sector gráfico, me especializo en materializar la visión de mis clientes a través de soluciones visuales que no solo se ven bien, sino que funcionan. Mi enfoque combina la precisión técnica de las gigantografías con la sensibilidad artística del diseño gráfico moderno.
+                <h2 class="text-4xl font-bold">Jhon Jairo Montero Duran</h2>
+                <p class="text-gray-400 text-lg leading-relaxed">
+                    Experto en soluciones visuales con un enfoque en diseño de alta gama y gigantografías duraderas. Mi misión es que tu negocio sea imposible de ignorar.
                 </p>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <div class="flex items-center gap-2 text-sm text-gray-400"><i data-lucide="award" class="w-4 h-4 text-blue-400"></i> Calidad Premium</div>
-                    <div class="flex items-center gap-2 text-sm text-gray-400"><i data-lucide="clock" class="w-4 h-4 text-blue-400"></i> Entrega Puntual</div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Portafolio / Galería -->
-    <section id="portafolio" class="py-24 px-6 bg-zinc-900/30">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-4xl font-bold mb-2">Mi Portafolio</h2>
-                    <p class="text-gray-400">Una muestra de proyectos recientes.</p>
-                </div>
-                <div class="hidden md:block">
-                    <span class="text-blue-500 font-bold border-b-2 border-blue-500 pb-1">Ver todos los proyectos</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Item 1 -->
-                <div class="group relative overflow-hidden rounded-2xl bg-zinc-800 h-64 border border-white/5">
-                    <div class="flex items-center justify-center h-full text-zinc-600 italic">[Diseño de Logo Estilo Creativo]</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <p class="font-bold">Branding Corporativo</p>
-                    </div>
-                </div>
-                <!-- Item 2 -->
-                <div class="group relative overflow-hidden rounded-2xl bg-zinc-800 h-64 border border-white/5">
-                    <div class="flex items-center justify-center h-full text-zinc-600 italic">[Flyers Publicitarios]</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <p class="font-bold">Campaña Publicitaria</p>
-                    </div>
-                </div>
-                <!-- Item 3 -->
-                <div class="group relative overflow-hidden rounded-2xl bg-zinc-800 h-64 border border-white/5">
-                    <div class="flex items-center justify-center h-full text-zinc-600 italic">[Gigantografía Fachada]</div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <p class="font-bold">Letrero Exterior Gran Formato</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Contacto -->
-    <footer class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+    <!-- Footer -->
+    <footer class="py-24 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
             <div class="space-y-6">
                 <div class="text-2xl font-extrabold gradient-text">ESTILO CREATIVO</div>
-                <p class="text-gray-500 text-sm">Especialistas en diseño gráfico y publicidad visual de alto impacto.</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="facebook"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="video"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i data-lucide="github"></i></a>
-                </div>
+                <p class="text-gray-500 text-sm">Elevamos la estética visual de tu negocio.</p>
             </div>
-
             <div class="space-y-4">
-                <h4 class="font-bold">Ubicación & Contacto</h4>
-                <ul class="text-gray-500 text-sm space-y-3">
-                    <li class="flex items-center gap-3"><i data-lucide="phone" class="w-4 h-4 text-blue-500"></i> +591 79015003</li>
-                    <li class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-blue-500"></i> contacto@estilocreativo.com</li>
-                    <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-blue-500"></i> Santa Cruz, Bolivia</li>
+                <h4 class="font-bold">Ayuda y Contacto</h4>
+                <ul class="text-gray-500 text-sm space-y-2">
+                    <li><a href="#ayuda" class="hover:text-blue-400 transition">Preguntas Frecuentes</a></li>
+                    <li>Soporte técnico</li>
+                    <li>Términos del servicio</li>
                 </ul>
             </div>
-
             <div class="space-y-4">
-                <h4 class="font-bold">Solicita un presupuesto</h4>
-                <p class="text-gray-500 text-sm">Hablemos por WhatsApp para darte una cotización inmediata.</p>
-                <a href="https://wa.me/59179015003" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition">
-                    Enviar Mensaje
-                </a>
+                <h4 class="font-bold">Contacto Directo</h4>
+                <p class="text-gray-500 text-sm italic">Santa Cruz, Bolivia</p>
+                <p class="text-gray-500 text-sm">WhatsApp: +591 79015003</p>
             </div>
-        </div>
-        <div class="max-w-7xl mx-auto pt-16 mt-16 border-t border-white/5 text-center text-xs text-gray-600">
-            &copy; 2024 Estilo Creativo. Diseñado por Jhon Jairo Montero Duran. Todos los derechos reservados.
         </div>
     </footer>
 
@@ -249,13 +283,31 @@
         // Inicializar Iconos Lucide
         lucide.createIcons();
 
+        // Control del Acordeón FAQ
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Cerrar otros abiertos
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
         // Efecto de Scroll en Navbar
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-black/80', 'backdrop-blur-md', 'shadow-2xl');
+            if (window.scrollY > 40) {
+                navbar.classList.add('bg-black/70', 'backdrop-blur-xl', 'border-white/10', 'h-16');
+                navbar.classList.remove('h-20', 'border-transparent');
             } else {
-                nav.classList.remove('bg-black/80', 'backdrop-blur-md', 'shadow-2xl');
+                navbar.classList.remove('bg-black/70', 'backdrop-blur-xl', 'border-white/10', 'h-16');
+                navbar.classList.add('h-20', 'border-transparent');
             }
         });
     </script>
